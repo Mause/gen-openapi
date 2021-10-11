@@ -3,6 +3,7 @@ from phply import phplex
 
 
 def t_php_DOC_COMMENT(t):
+    r'/\*\*(.|\n)*?\*/'
     raise Exception(t.value)
 
 
