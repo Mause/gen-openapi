@@ -35,7 +35,14 @@ def transform(stripped):
 
     tokens = tokenize.generate_tokens(lambda: lines.pop(0) if lines else "")
 
-    make_parser().parse(stripped)
+    def tokenfunc():
+        try:
+            return next(tokens)
+        except StopIteration:
+            return None
+
+    parser = make_parser()
+    print(parser.parse(stripped, tokenfunc=tokenfunc))
 
 
 def main():

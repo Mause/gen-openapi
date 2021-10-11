@@ -7,10 +7,11 @@ tokens = ["NAME"]
 
 def p_invokation(p):
     """INVOKATION : NAME"""
+    print("invokation", p)
 
 
 def p_error(p):
-    pass
+    print("error", p)
 
 
 # Build the grammar
