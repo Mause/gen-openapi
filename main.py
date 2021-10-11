@@ -43,6 +43,10 @@ def transform(stripped):
             token = LexToken()
             token.value = tok.string
             token.type = tok_name[tok.type]
+            if token.type == "OP":
+                token.type = {",": "COMMA", "(": "LBRACE", ")": "RBARCE", "=": "EQ"}[
+                    tok.string
+                ]
             token.lineno, token.lexpos = tok.start
             return token
         except StopIteration:
