@@ -49,7 +49,7 @@ def transform(stripped):
             return None
 
     parser = make_parser()
-    print("ast", parser.parse(tokenfunc=tokenfunc))
+    print("ast", parser.parse(tokenfunc=tokenfunc, debug=True))
 
 
 def main():
