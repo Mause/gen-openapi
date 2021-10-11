@@ -16,9 +16,13 @@ def t_php_DOC_COMMENT(t):
 phplex.t_php_DOC_COMMENT = t_php_DOC_COMMENT
 
 
-php_text = urlopen(
-    "https://github.com/invoiceninja/invoiceninja/raw/v5-develop/app/Http/Controllers/OpenAPI/InvoiceSchema.php"
-).read().decode()
+php_text = (
+    urlopen(
+        "https://github.com/invoiceninja/invoiceninja/raw/v5-develop/app/Http/Controllers/OpenAPI/InvoiceSchema.php"
+    )
+    .read()
+    .decode()
+)
 
 parser = phply.phpparse.make_parser(debug=True)
 print(
