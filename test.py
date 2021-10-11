@@ -13,6 +13,6 @@ parser = phply.phpparse.make_parser(debug=True)
 print(
     parser.parse(
         """<?php echo "hello, world!"; ?>""",
-        lexer=phplex.FilteredLexer(phplex.lexer.lexer.clone(phplex)),
+        lexer=phplex.lexer.clone(),
     )
 )
