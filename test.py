@@ -6,14 +6,13 @@ from phply import phplex
 comments = []
 
 
-def t_php_DOC_COMMENT(t):
-    r"/\*\*(.|\n)*?\*/"
-    t.lexer.lineno += t.value.count("\n")
-    comments.append(t.value)
-    return t
 
-
-phplex.t_php_DOC_COMMENT = t_php_DOC_COMMENT
+class XFilteredLexer(phplex.FilteredLexer):
+    def next_lexer_token(self):
+        ttype, value = super().next_lexer_token()
+        if ttype == 'DOC_COMMENT':
+            print(value)
+        return (ttype, value)
 
 
 php_text = (
@@ -30,7 +29,7 @@ parser = phply.phpparse.make_parser(debug=True)
 print(
     parser.parse(
         php_text,
-        lexer=phplex.FilteredLexer(phplex.lexer.lexer.clone(phplex)),
+        lexer=XFilteredLexer(phplex.lexer.lexer.clone()),
     )
 )
 print(comments)
