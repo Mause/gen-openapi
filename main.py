@@ -1,9 +1,11 @@
 import re
 import tokenize
+from token import tok_name
 from urllib.request import urlopen
 
 import phply.phpparse
 from phply import phplex, pythonast
+from ply.lex import LexToken
 
 from doctrine import make_parser
 
@@ -37,12 +39,17 @@ def transform(stripped):
 
     def tokenfunc():
         try:
-            return next(tokens)
+            tok = next(tokens)
+            token = LexToken()
+            token.value = tok.string
+            token.type = tok_name[tok.type]
+            token.lineno, token.lexpos = tok.start
+            return token
         except StopIteration:
             return None
 
     parser = make_parser()
-    print(parser.parse(stripped, tokenfunc=tokenfunc))
+    print("ast", parser.parse(tokenfunc=tokenfunc))
 
 
 def main():
@@ -70,8 +77,6 @@ def main():
         stripped = "\n".join(line.strip().strip("*") for line in comment.splitlines())
 
         stripped = stripped.replace("@OA\\", "")
-
-        print("stripped", stripped)
 
         transform(stripped)
 
