@@ -3,7 +3,7 @@ from phply import phplex
 
 
 def t_php_DOC_COMMENT(t):
-    r'/\*\*(.|\n)*?\*/'
+    r"/\*\*(.|\n)*?\*/"
     raise Exception(t.value)
 
 
@@ -13,6 +13,6 @@ parser = phply.phpparse.make_parser(debug=True)
 print(
     parser.parse(
         """<?php echo "hello, world!"; ?>""",
-        lexer=phplex.FilteredLexer(phplex.lexer.lexer.clone(phplex)),
+        lexer=phplex.lexer.clone(),
     )
 )
