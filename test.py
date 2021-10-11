@@ -1,6 +1,7 @@
+from urllib.request import urlopen
+
 import phply.phpparse
 from phply import phplex
-from urllib.request import urlopen
 
 
 def t_php_DOC_COMMENT(t):
