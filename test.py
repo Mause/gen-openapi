@@ -9,7 +9,7 @@ comments = []
 class XFilteredLexer(phplex.FilteredLexer):
     def next_lexer_token(self):
         ttype, value = super().next_lexer_token()
-        if ttype == 'DOC_COMMENT':
+        if ttype == "DOC_COMMENT":
             print(value)
         return (ttype, value)
 
