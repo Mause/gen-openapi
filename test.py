@@ -10,7 +10,7 @@ class XFilteredLexer(phplex.FilteredLexer):
     def next_lexer_token(self):
         tok = super().next_lexer_token()
         if tok and tok.type == "DOC_COMMENT":
-            print(tok.value)
+            comments.append(tok.value)
         return tok
 
 
