@@ -23,6 +23,8 @@ php_text = (
     .read()
     .decode()
 )
+print(php_text)
+print('-' * 80)
 
 parser = phply.phpparse.make_parser(debug=True)
 print(
