@@ -6,7 +6,6 @@ from phply import phplex
 comments = []
 
 
-
 class XFilteredLexer(phplex.FilteredLexer):
     def next_lexer_token(self):
         ttype, value = super().next_lexer_token()
