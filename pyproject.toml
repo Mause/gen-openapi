@@ -12,6 +12,9 @@ phply = "^1.2.5"
 [tool.poetry.dev-dependencies]
 pdbpp = "^0.10.3"
 
+[tool.isort]
+profile = "black"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
