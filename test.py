@@ -8,10 +8,10 @@ comments = []
 
 class XFilteredLexer(phplex.FilteredLexer):
     def next_lexer_token(self):
-        ttype, value = super().next_lexer_token()
-        if ttype == "DOC_COMMENT":
-            print(value)
-        return (ttype, value)
+        tok = super().next_lexer_token()
+        if tok.type == "DOC_COMMENT":
+            print(tok.value)
+        return tok
 
 
 php_text = (
