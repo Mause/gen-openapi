@@ -9,7 +9,7 @@ comments = []
 class XFilteredLexer(phplex.FilteredLexer):
     def next_lexer_token(self):
         tok = super().next_lexer_token()
-        if tok.type == "DOC_COMMENT":
+        if tok and tok.type == "DOC_COMMENT":
             print(tok.value)
         return tok
 
@@ -21,8 +21,6 @@ php_text = (
     .read()
     .decode()
 )
-print(php_text)
-print("-" * 80)
 
 parser = phply.phpparse.make_parser(debug=True)
 print(
