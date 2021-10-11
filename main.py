@@ -1,4 +1,5 @@
 from urllib.request import urlopen
+import re
 
 import phply.phpparse
 from phply import phplex
@@ -30,3 +31,10 @@ print(
     )
 )
 print(comments)
+
+DOC_COMMENT = re.compile(r'/\*\*(.|\n)*?\*/')
+
+for comment in comments:
+    comment = DOC_COMMENT.match(comment).groups(1)
+    print('\n'.join(line.strip().strip('*') for line in comment.splitlines()))
+
