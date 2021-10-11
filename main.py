@@ -35,5 +35,5 @@ print(comments)
 DOC_COMMENT = re.compile(r"/\*\*(.|\n)*?\*/")
 
 for comment in comments:
-    comment = DOC_COMMENT.match(comment).groups(1)
+    comment = DOC_COMMENT.match(comment).group(1)
     print("\n".join(line.strip().strip("*") for line in comment.splitlines()))
