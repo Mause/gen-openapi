@@ -5,11 +5,13 @@ from phply import phplex
 
 comments = []
 
+
 def t_php_DOC_COMMENT(t):
     r"/\*\*(.|\n)*?\*/"
     t.lexer.lineno += t.value.count("\n")
     comments.append(t.value)
     return t
+
 
 phplex.t_php_DOC_COMMENT = t_php_DOC_COMMENT
 
