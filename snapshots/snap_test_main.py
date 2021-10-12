@@ -4,4 +4,4 @@ from snapshottest import Snapshot
 
 snapshots = Snapshot()
 
-snapshots['test_simple 1'] = None
+snapshots["test_simple 1"] = None
