@@ -61,8 +61,8 @@ def transform(stripped):
 
     parser = make_parser()
     ast = parser.parse(tokenfunc=tokenfunc, debug=True)
-    assert ast
     print("ast", ast)
+    return ast
 
 
 def main():
