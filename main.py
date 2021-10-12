@@ -94,7 +94,7 @@ def parse_txt_into_swagger(php_text: str) -> None:
 
         stripped = stripped.replace("@OA\\", "")
 
-        transform(stripped)
+        yield transform(stripped)
 
 
 if __name__ == "__main__":

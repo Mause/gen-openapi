@@ -4,6 +4,25 @@ from snapshottest import Snapshot
 
 snapshots = Snapshot()
 
+snapshots["test_php 1"] = [
+    {
+        "args": [
+            ("schema", '"Invoice"'),
+            ("type", '"object"'),
+            {
+                "args": [
+                    ("property", '"id"'),
+                    ("type", '"string"'),
+                    ("example", '"Opnel5aKBz"'),
+                    ("description", '"_________"'),
+                ],
+                "type": "Property",
+            },
+        ],
+        "type": "Schema",
+    }
+]
+
 snapshots["test_simple[Schema(Property(hello=true))] 1"] = {
     "args": [{"args": [("hello", "true")], "type": "Property"}],
     "type": "Schema",
