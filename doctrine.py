@@ -14,9 +14,14 @@ def p_start(p: YaccProduction):
 
 def p_UNNAMED_ARG(p: YaccProduction):
     """UNNAMED_ARG : INVOKATION
-    | STRING
+    | UNQUOTED_STRING
     | BOOL"""
     p[0] = p[1]
+
+
+def p_UNQUOTED_STRING(p: YaccProduction):
+    "UNQUOTED_STRING : STRING"
+    p[0] = p[1][1:-1]
 
 
 def p_NAMED_ARG(p: YaccProduction):
