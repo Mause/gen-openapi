@@ -54,6 +54,7 @@ def p_INVOKATION(p: YaccProduction):
 
 
 def p_error(p: LexToken):
+    pass
     # print("error", p)
 
 
