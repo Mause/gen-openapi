@@ -2,12 +2,6 @@ from main import transform
 
 
 def test_simple(snapshot):
-    snapshot.assert_match(
-        transform(
-            """
-
-Schema(hello="world")
-
-    """
-        )
-    )
+    schemata = transform("""Schema(hello="world")""")
+    assert schemata
+    snapshot.assert_match(schemata)

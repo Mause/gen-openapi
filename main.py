@@ -73,7 +73,10 @@ def main():
         .read()
         .decode()
     )
+    parse_txt_into_swagger(php_text)
 
+
+def parse_txt_into_swagger(php_text: str) -> None:
     parser = phply.phpparse.make_parser(debug=True)
     lexer = XFilteredLexer(phplex.lexer.lexer.clone())
     print(

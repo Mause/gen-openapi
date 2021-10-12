@@ -24,15 +24,15 @@ def p_NAMED_ARG(p: YaccProduction):
     p[0] = (p[1], p[3])
 
 
-def p_THING(p: YaccProduction):
-    """THING : NAMED_ARG
+def p_VALUE(p: YaccProduction):
+    """VALUE : NAMED_ARG
     | UNNAMED_ARG"""
     p[0] = p[1]
 
 
-def p_THING_LIST(p):
-    """THING_LIST : THING_LIST COMMA THING
-    | THING"""
+def p_VALUE_LIST(p):
+    """VALUE_LIST : VALUE_LIST COMMA VALUE
+    | VALUE"""
     if len(p) == 4:
         p[0] = p[1] + [p[3]]
     else:
@@ -44,12 +44,17 @@ def p_empty(p: YaccProduction):
 
 
 def p_BODY(p: YaccProduction):
-    """BODY : THING_LIST"""
+    """BODY : VALUE_LIST"""
     p[0] = p[1]
 
 
+def p_OPTIONAL_COMMA(p: YaccProduction):
+    """OPTIONAL_COMMA : COMMA
+    | empty"""
+
+
 def p_INVOKATION(p: YaccProduction):
-    """INVOKATION : NAME LBRACE BODY COMMA RBRACE"""
+    """INVOKATION : NAME LBRACE BODY OPTIONAL_COMMA RBRACE"""
     p[0] = {"type": p[1], "args": p[3]}
 
 
