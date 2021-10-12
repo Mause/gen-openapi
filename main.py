@@ -33,6 +33,7 @@ class Parameter:
 
 
 def transform(stripped):
+    open("subject.txt", "w").write(stripped.strip())
     lines = stripped.strip().splitlines()
 
     tokens = tokenize.generate_tokens(lambda: lines.pop(0) if lines else "")
@@ -43,10 +44,16 @@ def transform(stripped):
             token = LexToken()
             token.value = tok.string
             token.type = tok_name[tok.type]
-            if token.type == "OP":
-                token.type = {",": "COMMA", "(": "LBRACE", ")": "RBARCE", "=": "EQ"}[
+
+            if token.type == "NAME" and token.value in {"true", "false"}:
+                token.type = "BOOL"
+            elif token.type == "OP":
+                token.type = {",": "COMMA", "(": "LBRACE", ")": "RBRACE", "=": "EQ"}[
                     tok.string
                 ]
+            elif token.type in ("NEWLINE", "ENDMARKER"):
+                return tokenfunc()
+
             token.lineno, token.lexpos = tok.start
             return token
         except StopIteration:
