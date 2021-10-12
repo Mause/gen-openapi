@@ -7,14 +7,14 @@ snapshots = Snapshot()
 snapshots["test_php 1"] = [
     {
         "args": [
-            ("schema", '"Invoice"'),
-            ("type", '"object"'),
+            ("schema", "Invoice"),
+            ("type", "object"),
             {
                 "args": [
-                    ("property", '"id"'),
-                    ("type", '"string"'),
-                    ("example", '"Opnel5aKBz"'),
-                    ("description", '"_________"'),
+                    ("property", "id"),
+                    ("type", "string"),
+                    ("example", "Opnel5aKBz"),
+                    ("description", "_________"),
                 ],
                 "type": "Property",
             },
@@ -29,7 +29,7 @@ snapshots["test_simple[Schema(Property(hello=true))] 1"] = {
 }
 
 snapshots['test_simple[Schema(hello="world")] 1'] = {
-    "args": [("hello", '"world"')],
+    "args": [("hello", "world")],
     "type": "Schema",
 }
 
