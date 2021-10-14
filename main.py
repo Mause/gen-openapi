@@ -35,13 +35,19 @@ class Parameter:
 def transform(stripped):
     open("subject.txt", "w").write(stripped.strip())
     lines = stripped.strip().splitlines()
+    current_line = [""]
 
-    tokens = tokenize.generate_tokens(lambda: lines.pop(0) if lines else "")
+    def readline():
+        current_line[0] = lines.pop(0) if lines else ""
+        return current_line[0]
+
+    tokens = tokenize.generate_tokens(readline)
 
     def tokenfunc():
         try:
             tok = next(tokens)
             token = LexToken()
+            token.line = current_line[0]
             token.value = tok.string
             token.type = tok_name[tok.type]
 
