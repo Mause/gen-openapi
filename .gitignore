@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 
 parsetab.py
+parser.out
+subject.txt
