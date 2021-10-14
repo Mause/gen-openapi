@@ -63,9 +63,12 @@ def p_INVOKATION(p: YaccProduction):
     p[0] = {"type": p[1], "args": p[3]}
 
 
-def p_error(p: LexToken):
-    pass
-    # print("error", p)
+def p_error(t: LexToken):
+    # https://docs.python.org/3/library/exceptions.html#SyntaxError
+    if t:
+        raise SyntaxError("invalid syntax", (None, t.lineno, t.lexpos, t.line))
+    else:
+        raise SyntaxError("unexpected EOF while parsing", (None, None, None, None))
 
 
 # Build the grammar
