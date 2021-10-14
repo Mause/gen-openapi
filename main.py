@@ -1,6 +1,7 @@
 import re
 import tokenize
 from token import tok_name
+from typing import Callable
 from urllib.request import urlopen
 
 import phply.phpparse
@@ -32,8 +33,7 @@ class Parameter:
     pass
 
 
-def transform(stripped):
-    open("subject.txt", "w").write(stripped.strip())
+def tokeneyes(stripped: str) -> Callable[[], LexToken | None]:
     lines = stripped.strip().splitlines()
     current_line = [""]
 
@@ -64,6 +64,15 @@ def transform(stripped):
             return token
         except StopIteration:
             return None
+
+    return tokenfunc
+
+
+def transform(stripped):
+    with open("subject.txt", "w") as fh:
+        fh.write(stripped.strip())
+
+    tokenfunc = tokeneyes(stripped)
 
     parser = make_parser()
     ast = parser.parse(tokenfunc=tokenfunc, debug=True)
