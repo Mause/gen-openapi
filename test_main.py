@@ -39,7 +39,13 @@ def test_main(snapshot):
     snapshot.assert_match(res)
 
 
-@mark.parametrize("schema", strings)
+@mark.parametrize(
+    "schema",
+    strings
+    + [
+        ("""Schema(Property(hello=true,),)"""),
+    ],
+)
 def test_tokeneyes(snapshot, schema):
     tokens = list(iter(tokeneyes(schema), None))
 

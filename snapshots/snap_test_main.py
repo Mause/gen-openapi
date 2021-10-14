@@ -50,6 +50,20 @@ snapshots["test_tokeneyes[Schema(Property(hello=true))] 1"] = [
     GenericRepr("LexToken(RBRACE,')',1,27)"),
 ]
 
+snapshots["test_tokeneyes[Schema(Property(hello=true,),)] 1"] = [
+    GenericRepr("LexToken(NAME,'Schema',1,0)"),
+    GenericRepr("LexToken(LBRACE,'(',1,6)"),
+    GenericRepr("LexToken(NAME,'Property',1,7)"),
+    GenericRepr("LexToken(LBRACE,'(',1,15)"),
+    GenericRepr("LexToken(NAME,'hello',1,16)"),
+    GenericRepr("LexToken(EQ,'=',1,21)"),
+    GenericRepr("LexToken(BOOL,'true',1,22)"),
+    GenericRepr("LexToken(COMMA,',',1,26)"),
+    GenericRepr("LexToken(RBRACE,')',1,27)"),
+    GenericRepr("LexToken(COMMA,',',1,28)"),
+    GenericRepr("LexToken(RBRACE,')',1,29)"),
+]
+
 snapshots['test_tokeneyes[Schema(hello="world")] 1'] = [
     GenericRepr("LexToken(NAME,'Schema',1,0)"),
     GenericRepr("LexToken(LBRACE,'(',1,6)"),
