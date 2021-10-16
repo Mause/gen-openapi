@@ -112,5 +112,29 @@ def parse_txt_into_swagger(php_text: str) -> None:
         yield transform(stripped)
 
 
+def get_editable_fields():
+    from phply import pythonast
+
+    php_text = (
+        urlopen(
+            "https://github.com/invoiceninja/invoiceninja/raw/v5-develop/app/Models/Invoice.php"
+        )
+        .read()
+        .decode()
+    )
+
+    import php_parsers
+
+    ast = pyphp.compiler.compile_php(php_text)
+
+    clazz = next(node for node in ast if node.name == "Invoice")
+
+    fillable = next(node for node in clazz.tokens if node.name == "$fillable")
+
+    fillable = ast.literal_eval(pythonast.from_phpast(fillable))
+
+    print(fillable)
+
+
 if __name__ == "__main__":
-    main()
+    get_editable_fields()

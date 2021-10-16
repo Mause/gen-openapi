@@ -8,6 +8,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.10"
 phply = "^1.2.5"
+php-parsers = { git = "https://github.com/Mause/PHP-Parsers", branch = "9fac982" }
 
 [tool.poetry.dev-dependencies]
 pdbpp = "^0.10.3"
