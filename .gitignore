@@ -131,3 +131,6 @@ dmypy.json
 parsetab.py
 parser.out
 subject.txt
+vendor/
+composer.phar
+.php-cs-fixer.cache
