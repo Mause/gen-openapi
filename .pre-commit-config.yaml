@@ -1,6 +1,8 @@
 exclude: .*\.snap
 default_language_version:
     python: python3.10
+ci:
+  skip: [php-cs-fixer, php-cbf, php-lint]
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.1
@@ -37,3 +39,12 @@ repos:
     rev: 21.9b0
     hooks:
       - id: black
+  - repo: https://github.com/digitalpulp/pre-commit-php
+    rev: 1.4.0
+    hooks:
+    - id: php-lint
+    - id: php-cs-fixer
+      files: \.(php)$
+    - id: php-cbf
+      files: \.(php)$
+      args: [--standard=PSR1 -p]
