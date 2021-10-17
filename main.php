@@ -10,6 +10,7 @@ use PhpParser\Node;
 use PhpParser\NodeFinder;
 use PhpParser\ConstExprEvaluator;
 use PhpParser\ConstExprEvaluationException;
+use Doctrine\Common\Annotations\DocParser;
 
 $code = file_get_contents("https://github.com/invoiceninja/invoiceninja/raw/v5-develop/app/Models/Invoice.php");
 
@@ -45,3 +46,12 @@ $array = $evaluator->evaluateSilently($field->default);
 echo implode(", ", $array) . "\n";
 // $dumper = new NodeDumper;
 // echo $dumper->dump($field) . "\n";
+
+echo "\n";
+
+$code = file_get_contents("https://github.com/invoiceninja/invoiceninja/raw/v5-develop/app/Http/Controllers/OpenAPI/InvoiceSchema.php");
+
+$docParser = new DocParser();
+$docParser->setImports(array("oa" => "OpenApi\Annotations"));
+$annotations = $docParser->parse($code, 'InvoiceSchema.php');
+echo $annotations[0]->toYaml() . "\n";
