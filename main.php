@@ -27,15 +27,10 @@ class Genny
         $this->docParser->setImports(array("oa" => "OpenApi\Annotations"));
     }
 
-    public function get_data()
+    public function get_data(String $modelName, String $baseSchemaName)
     {
-        $code = file_get_contents("https://github.com/invoiceninja/invoiceninja/raw/v5-develop/app/Models/Invoice.php");
-        try {
-            $ast = $this->parser->parse($code);
-        } catch (Error $error) {
-            echo "Parse error: {$error->getMessage()}\n";
-            return;
-        }
+        $code = file_get_contents("https://github.com/invoiceninja/invoiceninja/raw/v5-develop/app/Models/$modelName.php");
+        $ast = $this->parser->parse($code);
 
         $ast = $this->nodeTraverser->traverse($ast);
 
@@ -55,9 +50,9 @@ class Genny
         echo implode(", ", $array) . "\n";
         echo "\n";
 
-        $code = file_get_contents("https://github.com/invoiceninja/invoiceninja/raw/v5-develop/app/Http/Controllers/OpenAPI/InvoiceSchema.php");
+        $code = file_get_contents("https://github.com/invoiceninja/invoiceninja/raw/v5-develop/app/Http/Controllers/OpenAPI/$baseSchemaName.php");
 
-        $annotations = $this->docParser->parse($code, 'InvoiceSchema.php');
+        $annotations = $this->docParser->parse($code, $baseSchemaName);
         echo $annotations[0]->toYaml() . "\n";
 
         return array("fillable" => $array);
@@ -66,4 +61,4 @@ class Genny
 
 use Symfony\Component\Yaml\Yaml;
 
-echo (new Yaml())->dump((new Genny())->get_data());
+echo (new Yaml())->dump((new Genny())->get_data("Invoice", "InvoiceSchema"));
