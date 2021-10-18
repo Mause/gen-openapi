@@ -1,4 +1,13 @@
 {
+    "name": "mause/gen-openapi",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Elliana May",
+            "email": "me@mause.me"
+        }
+    ],
     "require": {
         "nikic/php-parser": "^4.13",
         "doctrine/annotations": "^1.13",
