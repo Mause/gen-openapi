@@ -17,7 +17,7 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
 $logger = new Logger('SimpleLogger');
-if ($_ENV.VERCEL) {
+if (getenv("VERCEL")) {
     $filename = '/tmp/server.log';
 } else {
     $filename = __DIR__.'/server.log';
