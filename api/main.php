@@ -94,10 +94,10 @@ function main(Logger $logger)
 
     $anno->properties = array_filter(
         $anno->properties,
-        function (Property $property) use ($data) {
+        function (Property $property) use ($data, $logger) {
             $fillable = in_array($property->property, $data["fillable"], true);
             if (!$fillable) {
-                print("$property->property is not fillable\n");
+                $logger->info("$property->property is not fillable\n");
             }
             return $fillable;
         }
