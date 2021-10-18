@@ -78,9 +78,9 @@ function wrap_with_comment(String $comment)
     return "<?php\n/**\n * " . implode("\n * ", $lines) . "\n */";
 }
 
-function main(Logger $logger)
+function main(Logger $logger, String $modelName, String $baseSchemaName)
 {
-    $data = (new Genny($logger))->get_data("Invoice", "InvoiceSchema");
+    $data = (new Genny($logger))->get_data($modelName, $baseSchemaName);
     $anno = $data["annotations"][0];
 
     $anno->properties = array_filter(
