@@ -11,6 +11,8 @@ use PhpParser\NodeFinder;
 use PhpParser\ConstExprEvaluator;
 use PhpParser\ConstExprEvaluationException;
 use Doctrine\Common\Annotations\DocParser;
+use Symfony\Component\Yaml\Yaml;
+use OpenApi\Annotations\Property;
 
 class Genny
 {
@@ -55,10 +57,24 @@ class Genny
         $annotations = $this->docParser->parse($code, $baseSchemaName);
         echo $annotations[0]->toYaml() . "\n";
 
-        return array("fillable" => $array);
+        return array("fillable" => $array, "annotations" => $annotations);
     }
 }
 
-use Symfony\Component\Yaml\Yaml;
 
-echo (new Yaml())->dump((new Genny())->get_data("Invoice", "InvoiceSchema"));
+function main()
+{
+    $data = (new Genny())->get_data("Invoice", "InvoiceSchema");
+    $anno = $data["annotations"][0];
+
+    $anno->properties = array_filter(
+        $anno->properties,
+        function (Property $property) use ($data) {
+        return in_array($property->property, $data["fillable"], true);
+    }
+    );
+
+    echo $anno->toYaml();
+}
+
+main();
