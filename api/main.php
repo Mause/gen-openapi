@@ -13,11 +13,17 @@ use PhpParser\ConstExprEvaluationException;
 use Doctrine\Common\Annotations\DocParser;
 use Symfony\Component\Yaml\Yaml;
 use OpenApi\Annotations\Property;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+$logger = new Logger('SimpleLogger');
+$logger->pushHandler(new StreamHandler(__DIR__.'/server.log', Logger::DEBUG));
 
 class Genny
 {
-    public function __construct()
+    public function __construct(Logger $logger)
     {
+        $this->logger = $logger;
         $this->parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
         $nameResolver = new PhpParser\NodeVisitor\NameResolver();
         $this->nodeTraverser = new PhpParser\NodeTraverser();
@@ -38,7 +44,7 @@ class Genny
 
         $classes = $this->nodeFinder->findInstanceOf($ast, Node\Stmt\Class_::class);
         $class = $classes[0];
-        echo "class: " . $class->name->toString() . "\n";
+        $this->logger->info("class: " . $class->name->toString());
 
         $name = "fillable";
 
@@ -49,8 +55,7 @@ class Genny
 
         $array = $this->evaluator->evaluateSilently($field->default);
 
-        echo implode(", ", $array) . "\n";
-        echo "\n";
+        $this->logger->info(implode(", ", $array));
 
         $code = file_get_contents("https://github.com/invoiceninja/invoiceninja/raw/v5-develop/app/Http/Controllers/OpenAPI/$baseSchemaName.php");
 
@@ -77,9 +82,9 @@ function wrap_with_comment(String $comment)
     return "<?php\n/**\n * " . implode("\n * ", $lines) . "\n */";
 }
 
-function main()
+function main(Logger $logger)
 {
-    $data = (new Genny())->get_data("Invoice", "InvoiceSchema");
+    $data = (new Genny($logger))->get_data("Invoice", "InvoiceSchema");
     $anno = $data["annotations"][0];
 
     $anno->properties = array_filter(
@@ -97,4 +102,4 @@ function main()
     echo wrap_with_comment($stringer) . "\n";
 }
 
-main();
+main($logger);
