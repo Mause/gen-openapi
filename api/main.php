@@ -106,5 +106,3 @@ function main(Logger $logger)
     $stringer =  back_to_string($anno);
     echo wrap_with_comment($stringer) . "\n";
 }
-
-main($logger);
