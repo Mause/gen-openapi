@@ -17,7 +17,12 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
 $logger = new Logger('SimpleLogger');
-$logger->pushHandler(new StreamHandler(__DIR__.'/server.log', Logger::DEBUG));
+if ($_ENV.VERCEL) {
+    $filename = '/tmp/server.log';
+} else {
+    $filename = __DIR__.'/server.log';
+}
+$logger->pushHandler(new StreamHandler($filename, Logger::DEBUG));
 
 class Genny
 {
