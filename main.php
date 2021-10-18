@@ -67,7 +67,14 @@ function back_to_string(OpenApi\Annotations\Schema $anno)
             return "        @OA\Property(property=\"$prop->property\", type=\"$prop->type\", example=\"$prop->example\", description=\"$prop->description\")";
         }, $anno->properties));
     }
-    return "@OA\Schema(\n    schema=\"$anno->schema\",\n    type=\"$anno->type\",\n$props\n)";
+    return "@OA\Schema(\n    schema=\"Fillable$anno->schema\",\n    type=\"$anno->type\",\n$props\n)";
+}
+
+function wrap_with_comment(String $comment)
+{
+    $lines = explode("\n", $comment);
+
+    return "<?php\n/**\n * " . implode("\n * ", $lines) . "\n */";
 }
 
 function main()
@@ -86,7 +93,8 @@ function main()
         }
     );
 
-    echo back_to_string($anno) . "\n";
+    $stringer =  back_to_string($anno);
+    echo wrap_with_comment($stringer) . "\n";
 }
 
 main();
