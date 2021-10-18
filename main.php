@@ -55,12 +55,20 @@ class Genny
         $code = file_get_contents("https://github.com/invoiceninja/invoiceninja/raw/v5-develop/app/Http/Controllers/OpenAPI/$baseSchemaName.php");
 
         $annotations = $this->docParser->parse($code, $baseSchemaName);
-        echo $annotations[0]->toYaml() . "\n";
 
         return array("fillable" => $array, "annotations" => $annotations);
     }
 }
 
+function back_to_string(OpenApi\Annotations\Schema $anno)
+{
+    if ($anno->type == "object") {
+        $props = implode(",\n", array_map(function (OpenApi\Annotations\Property $prop) {
+            return "        @OA\Property(property=\"$prop->property\", type=\"$prop->type\", example=\"$prop->example\", description=\"$prop->description\")";
+        }, $anno->properties));
+    }
+    return "@OA\Schema(\n    schema=\"$anno->schema\",\n    type=\"$anno->type\",\n$props\n)";
+}
 
 function main()
 {
@@ -70,11 +78,15 @@ function main()
     $anno->properties = array_filter(
         $anno->properties,
         function (Property $property) use ($data) {
-        return in_array($property->property, $data["fillable"], true);
-    }
+            $fillable = in_array($property->property, $data["fillable"], true);
+            if (!$fillable) {
+                print("$property->property is not fillable\n");
+            }
+            return $fillable;
+        }
     );
 
-    echo $anno->toYaml();
+    echo back_to_string($anno) . "\n";
 }
 
 main();
