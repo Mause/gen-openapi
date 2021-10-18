@@ -14,15 +14,6 @@ use Doctrine\Common\Annotations\DocParser;
 use Symfony\Component\Yaml\Yaml;
 use OpenApi\Annotations\Property;
 use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-
-$logger = new Logger('SimpleLogger');
-if (getenv("VERCEL")) {
-    $filename = '/tmp/server.log';
-} else {
-    $filename = __DIR__.'/server.log';
-}
-$logger->pushHandler(new StreamHandler($filename, Logger::DEBUG));
 
 class Genny
 {
