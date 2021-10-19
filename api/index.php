@@ -17,7 +17,7 @@ $logger->pushHandler(new StreamHandler($filename, Logger::DEBUG));
 SimpleRouter::get(
     "/api/main/model/{modelName}/schema/{baseSchemaName}",
     function (String $modelName, String $baseSchemaName) use ($logger) {
-        return main($logger, $modelName, $baseSchemaName);
+        echo main($logger, $modelName, $baseSchemaName);
     }
 );
 

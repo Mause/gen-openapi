@@ -95,5 +95,5 @@ function main(Logger $logger, String $modelName, String $baseSchemaName)
     );
 
     $stringer =  back_to_string($anno);
-    echo wrap_with_comment($stringer) . "\n";
+    return wrap_with_comment($stringer) . "\n";
 }
