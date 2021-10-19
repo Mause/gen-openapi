@@ -5,10 +5,9 @@ from typing import Callable
 from urllib.request import urlopen
 
 import phply.phpparse
+from doctrine import make_parser
 from phply import phplex, pythonast
 from ply.lex import LexToken
-
-from doctrine import make_parser
 
 DOC_COMMENT = re.compile(r"/\*\*(.|\n)+\*/")
 
