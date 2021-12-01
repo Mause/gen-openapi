@@ -11,7 +11,7 @@
     "require": {
         "nikic/php-parser": "^4.13",
         "doctrine/annotations": "^1.13",
-        "zircote/swagger-php": "^3.2",
+        "zircote/swagger-php": "^4.0",
         "monolog/monolog": "^2.3",
         "pecee/simple-router": "4.3.7.2"
     },
