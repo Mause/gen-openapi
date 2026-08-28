@@ -17,7 +17,7 @@ jobs:
       - uses: "ramsey/composer-install@v1"
       - run: ./vendor/bin/phpunit tests/* --log-junit results.xml
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
+        uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           files: results.xml
